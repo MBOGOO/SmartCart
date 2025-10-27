@@ -1,0 +1,118 @@
+1. Ion.RangeSlider (Flat UI Skin)  
+   Description: A responsive range slider plugin supporting single or double handles, with skins, prefixes/suffixes, and customization.  
+   Source / GitHub: https://github.com/IonDen/ion.rangeSlider :contentReference[oaicite:0]{index=0}  
+   Docs / Demo: https://ionden.com/a/plugins/ion.rangeSlider/en.html :contentReference[oaicite:1]{index=1}  
+
+2. jsGrid  
+   Description: Lightweight grid plugin (jQuery-based) supporting sorting, filtering, paging, editing, CRUD operations.  
+   Source / GitHub: https://github.com/tabalinas/jsgrid  
+
+3. Select2  
+   Description: Enhances standard `<select>` boxes with search, tagging, remote data, infinite scrolling, better UX.  
+   Source / GitHub: https://github.com/select2/select2 :contentReference[oaicite:2]{index=2}  
+   Docs: https://select2.org/ :contentReference[oaicite:3]{index=3}  
+
+4. Datamap  
+   Description: D3.js-based interactive map library for geospatial visualizations.  
+   Source / GitHub: (no official repo confirmed)  
+
+5. Date Picker  
+   Description: Calendar UI component for selecting dates.  
+   Source / GitHub: (depends on which datepicker plugin; no single repo)  
+
+6. Dropzone  
+   Description: Drag-and-drop file upload library with previews and progress.  
+   Source / GitHub: https://github.com/dropzone/dropzone  
+
+7. Easing  
+   Description: Library/support functions for animation easing curves (e.g. “ease-in-out”).  
+   Source / GitHub: (no specific “Easing” repo; usually part of jQuery UI or custom)  
+
+8. ECharts  
+   Description: Powerful charting library (from Apache) for visualizations like heatmaps, gauge, line, bar.  
+   Source / GitHub: https://github.com/apache/echarts  
+
+9. Flot Chart  
+   Description: jQuery plotting library using HTML5 canvas for line, bar, pie charts.  
+   Source / GitHub: https://github.com/flot/flot  
+
+10. Form Validation  
+    Description: JavaScript libraries or scripts to validate user input before submitting.  
+    Source / GitHub: (generic — depends on specific plugin)  
+
+11. Gmap  
+    Description: jQuery wrapper plugin for Google Maps API to simplify embedding and interactions.  
+    Source / GitHub: (depends on plugin; no canonical “Gmap” repo)  
+
+12. Google Chat  
+    Description: Integration/embedding with Google Chat via API.  
+    Source / GitHub: (not a UI library; API documentation from Google)  
+
+13. Granim.js  
+    Description: Animated gradient library using canvas.  
+    Source / GitHub: https://github.com/sarcadass/granim.js  
+
+14. Highcharts  
+    Description: Commercial interactive charting library with many chart types and interactivity.  
+    Source / GitHub: https://github.com/highcharts/highcharts  
+
+15. HTML5 Editor (e.g. TinyMCE / CKEditor)  
+    Description: WYSIWYG editors allowing rich text formatting.  
+    Source / GitHub:  
+    - TinyMCE: https://github.com/tinymce/tinymce  
+    - CKEditor: https://github.com/ckeditor/ckeditor4  
+
+16. jQuery  
+    Description: Core library simplifying DOM manipulation, events, AJAX.  
+    Source / GitHub: https://github.com/jquery/jquery  
+
+17. jQuery UI  
+    Description: UI components (widgets, interactions, animations) built on jQuery.  
+    Source / GitHub: https://github.com/jquery/jquery-ui  
+
+18. JustGage  
+    Description: Animated gauge meters (circular dials) for dashboards.  
+    Source / GitHub: https://github.com/toorshia/justgage  
+
+19. Knob  
+    Description: Circular dial input / visualization (jQuery plugin).  
+    Source / GitHub: https://github.com/aterrien/jQuery-Knob  
+
+20. Line Progress  
+    Description: Visual line / progress bar animations (upload, task completion).  
+    Source / GitHub: (generic concept; depends on plugin)  
+
+21. Menubar  
+    Description: UI component for horizontal / vertical menus in dashboards.  
+    Source / GitHub: (generic name; depends on specific plugin)  
+
+22. MetisMenu  
+    Description: Collapsible sidebar menu for admin templates.  
+    Source / GitHub: https://github.com/onokumus/metismenu  
+
+23. Nestable  
+    Description: Drag-and-drop hierarchical list builder.  
+    Source / GitHub: https://github.com/dbushell/Nestable  
+
+24. Pace  
+    Description: Automatic page load progress bar indicator.  
+    Source / GitHub: https://github.com/HubSpot/pace  
+
+25. Range Slider (Ion.RangeSlider)  
+    (Same as #1)  
+
+26. Rickshaw  
+    Description: Time-series charting built on D3.js.  
+    Source / GitHub: https://github.com/shutterstock/rickshaw  
+
+27. Scrollable  
+    Description: Custom scrollbar UI / smooth scroll enhancements.  
+    Source / GitHub: (depends on plugin; no single “Scrollable” repo)  
+
+28. SweetAlert  
+    Description: Beautiful popup alerts/confirmation dialogues.  
+    Source / GitHub: https://github.com/sweetalert2/sweetalert2  
+
+29. Toastr  
+    Description: Non-blocking notification library (toast messages).  
+    Source / GitHub: https://github.com/CodeSeven/toastr  

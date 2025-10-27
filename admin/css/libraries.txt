@@ -1,0 +1,182 @@
+==============================
+CSS LIBRARIES AND THEIR USES
+==============================
+
+1️⃣ BOOTSTRAP
+--------------
+Purpose:
+A responsive front-end CSS framework for designing modern web interfaces quickly.
+Use:
+Provides grid layouts, buttons, forms, modals, tables, and responsive components used in almost every admin dashboard.
+
+2️⃣ C3
+------
+Purpose:
+C3.js is a D3-based reusable chart library.
+Use:
+Helps create interactive charts such as line, bar, and pie charts to visualize data dynamically.
+
+3️⃣ ARMCHART
+------------
+Purpose:
+A library for creating advanced interactive charts and maps.
+Use:
+Used to display analytics, sales, or performance data in dashboard visualizations.
+
+4️⃣ BARRATING
+--------------
+Purpose:
+A lightweight jQuery plugin for rating systems.
+Use:
+Displays user feedback or product ratings using stars or bars.
+
+5️⃣ CALENDAR / CALENDAR 2
+--------------------------
+Purpose:
+Calendar UI components.
+Use:
+Used for scheduling, event tracking, or attendance management modules.
+
+6️⃣ CHARTIST
+-------------
+Purpose:
+Simple, responsive charts built with CSS and SVG.
+Use:
+For lightweight data visualizations such as trends or performance charts.
+
+7️⃣ DATATABLE
+--------------
+Purpose:
+An interactive table plugin for sorting, searching, and pagination.
+Use:
+Displays tabular data such as user lists, logs, or reports efficiently.
+
+8️⃣ DATEPICKER
+---------------
+Purpose:
+A calendar picker for selecting dates.
+Use:
+Used in forms for booking, scheduling, or filtering by date ranges.
+
+9️⃣ DROPZONE
+-------------
+Purpose:
+A drag-and-drop file upload library.
+Use:
+Used for uploading images or documents with progress indicators.
+
+10️⃣ HTML5EDITOR
+----------------
+Purpose:
+WYSIWYG (What You See Is What You Get) text editor.
+Use:
+Allows users to format and style content (like writing rich text or articles).
+
+11️⃣ JSGRID
+------------
+Purpose:
+A lightweight data grid plugin for CRUD operations.
+Use:
+Displays, edits, and filters records directly in tabular form without reloading the page.
+
+12️⃣ LINEPROGRESS
+-----------------
+Purpose:
+Animated line progress bar.
+Use:
+Shows upload progress, task completion, or system performance visually.
+
+13️⃣ LOBIPANEL
+---------------
+Purpose:
+A Bootstrap extension for draggable, collapsible, and closable panels.
+Use:
+Used to create modular, rearrangeable dashboard widgets.
+
+14️⃣ MENUBAR
+-------------
+Purpose:
+Navigation bar styling library.
+Use:
+Creates vertical or horizontal menus for admin dashboards.
+
+15️⃣ METISMENU
+---------------
+Purpose:
+A simple jQuery menu plugin for collapsible sidebar navigation.
+Use:
+Provides a clean and responsive sidebar menu for admin dashboards.
+
+16️⃣ NESTABLE
+--------------
+Purpose:
+Drag-and-drop hierarchical list builder.
+Use:
+Used to manage categories, menu structures, or task hierarchies visually.
+
+17️⃣ PRELOADER
+---------------
+Purpose:
+Displays a loading animation while content is being fetched.
+Use:
+Improves user experience by indicating background loading processes.
+
+18️⃣ RANGSLIDER
+----------------
+Purpose:
+Graphical range selector for numeric values.
+Use:
+Used for filtering data (e.g., price, age, date range) with draggable sliders.
+
+19️⃣ RICKSHAW CHART
+-------------------
+Purpose:
+A time-series chart library built on D3.js.
+Use:
+Used for visualizing dynamic, real-time data like server load or analytics.
+
+20️⃣ SCROLLABLE
+----------------
+Purpose:
+Custom scrollbar design and smooth scrolling.
+Use:
+Improves scroll behavior and aesthetics in long content areas.
+
+21️⃣ SELECT2
+-------------
+Purpose:
+Enhances standard HTML select boxes.
+Use:
+Supports searching, tagging, and multi-selection options in forms.
+
+22️⃣ SWEETALERT
+----------------
+Purpose:
+Replaces boring JavaScript alerts with beautiful pop-up messages.
+Use:
+Displays stylish confirmation, error, or success messages.
+
+23️⃣ TOASTR
+------------
+Purpose:
+Notification library for small popup alerts.
+Use:
+Used for non-intrusive success/error/info alerts in admin dashboards.
+
+24️⃣ VECTORMAP
+---------------
+Purpose:
+Displays interactive vector-based maps.
+Use:
+Used for showing regional data such as delivery areas, user locations, or sales by country.
+
+==============================
+ADDITIONAL INFO
+==============================
+These CSS libraries together create a full-featured admin interface with:
+- Responsive layout (Bootstrap)
+- Data visualization (C3, Chartist, Rickshaw)
+- Interactive UI components (Select2, SweetAlert, Toastr)
+- User-friendly tables and forms (Datatable, JsGrid, Datepicker)
+- Visual feedback (Progressbar, Rangslider, Preloader)
+==============================
