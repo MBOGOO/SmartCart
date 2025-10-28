@@ -1,104 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
+if (isset($_POST['submit'])) {           // if upload btn is pressed
 
-
-
-if(isset($_POST['submit']))           //if upload btn is pressed
-{
-	
-			
-		
-			
-		  
-		
-		
-		if(empty($_POST['d_name'])||empty($_POST['about'])||$_POST['price']==''||$_POST['res_name']=='')
-		{	
-											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
+    if (empty($_POST['d_name']) || empty($_POST['about']) || $_POST['price'] == '' || $_POST['res_name'] == '') {
+        $error = '<div class="alert alert-danger alert-dismissible fade show">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																<strong>All fields Must be Fillup!</strong>
 															</div>';
-									
-		
-								
-		}
-	else
-		{
-		
-				$fname = $_FILES['file']['name'];
-								$temp = $_FILES['file']['tmp_name'];
-								$fsize = $_FILES['file']['size'];
-								$extension = explode('.',$fname);
-								$extension = strtolower(end($extension));  
-								$fnew = uniqid().'.'.$extension;
-   
-								$store = "Res_img/items/".basename($fnew);                      // the path to store the upload image
-	
-					if($extension == 'jpg'||$extension == 'png'||$extension == 'gif' )
-					{        
-									if($fsize>=1000000)
-										{
-		
-		
-												$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>Max Image Size is 1024kb!</strong> Try different Image.
-															</div>';
-	   
-										}
-		
-									else
-										{
-												
-												
-												
-				                                 
-												$sql = "INSERT INTO items(rs_id,title,slogan,price,img) VALUE('".$_POST['res_name']."','".$_POST['d_name']."','".$_POST['about']."','".$_POST['price']."','".$fnew."')";  // store the submited data ino the database :images
-												mysqli_query($db, $sql); 
-												move_uploaded_file($temp, $store);
-			  
-													$success = 	'<div class="alert alert-success alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>Congrass!</strong> New Item Added Successfully.
-															</div>';
-                
-	
-										}
-					}
-					elseif($extension == '')
-					{
-						$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>select image</strong>
-															</div>';
-					}
-					else{
-					
-											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>invalid extension!</strong>png, jpg, Gif are accepted.
-															</div>';
-						
-	   
-						}               
-	   
-	   
-	   }
 
+    } else {
 
+        $fname = $_FILES['file']['name'];
+        $temp = $_FILES['file']['tmp_name'];
+        $fsize = $_FILES['file']['size']; // kept for future use if needed
+        $extension = explode('.', $fname);
+        $extension = strtolower(end($extension));
+        $fnew = uniqid().'.'.$extension;
 
-	
-	
-	
+        $store = 'Res_img/items/'.basename($fnew);  // Path to store the uploaded image
+
+        // ✅ Allow only specific image extensions (jpg, png, gif)
+        if ($extension == 'jpg' || $extension == 'png' || $extension == 'gif') {
+
+            // Move file directly — no size restriction
+            if (move_uploaded_file($temp, $store)) {
+
+                // Insert item data into the database
+                $sql = "INSERT INTO items (rs_id, title, slogan, price, img)
+                VALUES ('".$_POST['res_name']."',
+                        '".$_POST['d_name']."',
+                        '".$_POST['about']."',
+                        '".$_POST['price']."',
+                        '".$fnew."')";
+                mysqli_query($db, $sql);
+
+                // ✅ Success message
+                $success = '<div class="alert alert-success alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Congrass!</strong> New Item Added Successfully.
+                    </div>';
+
+            } else {
+                //  File upload failed
+                $error = '<div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Upload Failed!</strong> Please try again.
+                  </div>';
+            }
+
+        } elseif ($extension == '') {
+            //  No file selected
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Please select an image.</strong>
+              </div>';
+
+        } else {
+            //  Invalid file type
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Invalid file type!</strong> Only JPG, PNG, and GIF files are accepted.
+              </div>';
+
+        }
+
+    }
 
 }
-
-
 
 ?>
 <head>
@@ -235,8 +216,8 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                 <!-- Start Page Content -->
                   
 									
-									<?php  echo $error;
-									        echo $success; ?>
+									<?php echo $error;
+echo $success; ?>
 									
 									
 								
@@ -299,14 +280,13 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                                                     <label class="control-label">Select Store</label>
 													<select name="res_name" class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
                                                         <option>--Select Store--</option>
-                                                 <?php $ssql ="select * from store";
-													$res=mysqli_query($db, $ssql); 
-													while($row=mysqli_fetch_array($res))  
-													{
-                                                       echo' <option value="'.$row['rs_id'].'">'.$row['title'].'</option>';;
-													}  
-                                                 
-													?> 
+                                                 <?php $ssql = 'select * from store';
+$res = mysqli_query($db, $ssql);
+while ($row = mysqli_fetch_array($res)) {
+    echo ' <option value="'.$row['rs_id'].'">'.$row['title'].'</option>';
+}
+
+?> 
 													 </select>
                                                 </div>
                                             </div>
