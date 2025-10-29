@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("connection/connect.php");
+include 'connection/connect.php';
 error_reporting(0);
 session_start();
 ?>
@@ -36,20 +36,16 @@ session_start();
                             <li class="nav-item"> <a class="nav-link active" href="shop.php"style="color:black">Section <span class="sr-only"></span></a> </li>
                             
 							<?php
-						if(empty($_SESSION["user_id"]))
-							{
-								echo '<li class="nav-item"><a href="login.php" class="nav-link active"style="color:black">login</a> </li>
+                        if (empty($_SESSION['user_id'])) {
+                            echo '<li class="nav-item"><a href="login.php" class="nav-link active"style="color:black">login</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active"style="color:black">signup</a> </li>';
-							}
-						else
-							{
-									
-									
-										echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active"style="color:black">your orders</a> </li>';
-									echo  '<li class="nav-item"><a href="logout.php" class="nav-link active"style="color:black">logout</a> </li>';
-							}
+                        } else {
 
-						?>
+                            echo '<li class="nav-item"><a href="your_orders.php" class="nav-link active"style="color:black">your orders</a> </li>';
+                            echo '<li class="nav-item"><a href="logout.php" class="nav-link active"style="color:black">logout</a> </li>';
+                        }
+
+?>
 							 
                         </ul>
                     </div>
@@ -93,12 +89,10 @@ session_start();
                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-9">
                             <div class="bg-gray restaurant-entry">
                                 <div class="row">
-								<?php $ress= mysqli_query($db,"select * from store");
-									      while($rows=mysqli_fetch_array($ress))
-										  {
-													
-						
-													 echo' <div class="col-sm-12 col-md-12 col-lg-8 text-xs-center text-sm-left">
+								<?php $ress = mysqli_query($db, 'select * from store');
+while ($rows = mysqli_fetch_array($ress)) {
+
+    echo ' <div class="col-sm-12 col-md-12 col-lg-8 text-xs-center text-sm-left">
 															<div class="entry-logo">
 																<a class="img-fluid" href="items.php?res_id='.$rows['rs_id'].'" > <img src="admin/Res_img/'.$rows['image'].'" alt="Naivas Logo"></a>
 															</div>
@@ -121,10 +115,9 @@ session_start();
 																</div>
 																<!-- end:right info -->
 															</div>';
-										  }
-						
-						
-						?>
+}
+
+?>
                                     
                                 </div>
                                 <!--end:row -->

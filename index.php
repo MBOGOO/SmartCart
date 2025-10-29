@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("connection/connect.php");  //include connection file
+include 'connection/connect.php';  // include connection file
 error_reporting(0);  // using to hide undefine undex errors
-session_start(); //start temp session until logout/browser closed
+session_start(); // start temp session until logout/browser closed
 
 ?>
 <head>
@@ -39,20 +39,17 @@ session_start(); //start temp session until logout/browser closed
                             
                            
 							<?php
-						if(empty($_SESSION["user_id"])) // if user is not login
-							{
-								echo '<li class="nav-item"><a href="login.php" class="nav-link active">login</a> </li>
+                        if (empty($_SESSION['user_id'])) { // if user is not login
+                            echo '<li class="nav-item"><a href="login.php" class="nav-link active">login</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active">signup</a> </li>';
-							}
-						else
-							{
-									//if user is login
-									
-									echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active">your orders</a> </li>';
-									echo  '<li class="nav-item"><a href="logout.php" class="nav-link active">logout</a> </li>';
-							}
+                        } else {
+                            // if user is login
 
-						?>
+                            echo '<li class="nav-item"><a href="your_orders.php" class="nav-link active">Your Orders</a> </li>';
+                            echo '<li class="nav-item"><a href="logout.php" class="nav-link active">Logout</a> </li>';
+                        }
+
+?>
 							 
                         </ul>
 						 

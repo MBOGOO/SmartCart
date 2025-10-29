@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("connection/connect.php"); // connection to db
+include 'connection/connect.php'; // connection to db
 error_reporting(0);
 session_start();
 
-include_once 'product-action.php'; //including controller
+include_once 'product-action.php'; // including controller
 
 ?>
 
@@ -42,20 +42,16 @@ include_once 'product-action.php'; //including controller
                             <li class="nav-item"> <a class="nav-link active" href="shop.php" style="color:black">Section <span class="sr-only"></span></a> </li>
                             
 							<?php
-						if(empty($_SESSION["user_id"]))
-							{
-								echo '<li class="nav-item"><a href="login.php" class="nav-link active" style="color:black">login</a> </li>
+                        if (empty($_SESSION['user_id'])) {
+                            echo '<li class="nav-item"><a href="login.php" class="nav-link active" style="color:black">login</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active" style="color:black">signup</a> </li>';
-							}
-						else
-							{
-									
-									
-										echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active"style="color:black">your orders</a> </li>';
-									echo  '<li class="nav-item"><a href="logout.php" class="nav-link active"style="color:black">logout</a> </li>';
-							}
+                        } else {
 
-						?>
+                            echo '<li class="nav-item"><a href="your_orders.php" class="nav-link active"style="color:black">your orders</a> </li>';
+                            echo '<li class="nav-item"><a href="logout.php" class="nav-link active"style="color:black">logout</a> </li>';
+                        }
+
+?>
 							 
                         </ul>
                     </div>
@@ -77,11 +73,11 @@ include_once 'product-action.php'; //including controller
             </div>
             <!-- end:Top links -->
             <!-- start: Inner page hero -->
-			<?php $ress= mysqli_query($db,"select * from store where rs_id='$_GET[res_id]'");
-									     $rows=mysqli_fetch_array($ress);
-										  
-										  ?>
-            <section class="inner-page-hero bg-image" data-image-src="images/img/back4.png">
+			<?php $ress = mysqli_query($db, "select * from store where rs_id='$_GET[res_id]'");
+$rows = mysqli_fetch_array($ress);
+
+?>
+            <section class="inner-page-hero bg-image" data-image-src="images/cart.jpg">
                 <div class="profile">
                     <div class="container">
                         <div class="row">
@@ -143,27 +139,26 @@ include_once 'product-action.php'; //including controller
 
 $item_total = 0;
 
-foreach ($_SESSION["cart_item"] as $item)  // fetch items define current into session ID
-{
-?>									
+foreach ($_SESSION['cart_item'] as $item) {  // fetch items define current into session ID
+    ?>									
 									
                                         <div class="title-row">
-										<?php echo $item["title"]; ?><a href="items.php?res_id=<?php echo $_GET['res_id']; ?>&action=remove&id=<?php echo $item["d_id"]; ?>" >
+										<?php echo $item['title']; ?><a href="items.php?res_id=<?php echo $_GET['res_id']; ?>&action=remove&id=<?php echo $item['d_id']; ?>" >
 										<i class="fa fa-trash pull-right"></i></a>
 										</div>
 										
                                         <div class="form-group row no-gutter">
                                             <div class="col-xs-8">
-                                                 <input type="text" class="form-control b-r-0" value=<?php echo "Kes".$item["price"]; ?> readonly id="exampleSelect1">
+                                                 <input type="text" class="form-control b-r-0" value=<?php echo 'Kes'.$item['price']; ?> readonly id="exampleSelect1">
                                                    
                                             </div>
                                             <div class="col-xs-4">
-                                               <input class="form-control" type="text" readonly value='<?php echo $item["quantity"]; ?>' id="example-number-input"> </div>
+                                               <input class="form-control" type="text" readonly value='<?php echo $item['quantity']; ?>' id="example-number-input"> </div>
                                         
 									  </div>
 									  
 	<?php
-$item_total += ($item["price"]*$item["quantity"]); // calculating current price into cart
+    $item_total += ($item['price'] * $item['quantity']); // calculating current price into cart
 }
 ?>								  
 									  
@@ -177,9 +172,9 @@ $item_total += ($item["price"]*$item["quantity"]); // calculating current price 
                                 <div class="widget-body">
                                     <div class="price-wrap text-xs-center">
                                         <p>TOTAL</p>
-                                        <h3 class="value"><strong><?php echo "Kes".$item_total; ?></strong></h3>
+                                        <h3 class="value"><strong><?php echo 'Kes'.$item_total; ?></strong></h3>
                                         <p>Free Shipping</p>
-                                        <a href="checkout.php?res_id=<?php echo $_GET['res_id'];?>&action=check"  class="btn theme-btn btn-lg">Checkout</a>
+                                        <a href="checkout.php?res_id=<?php echo $_GET['res_id']; ?>&action=check"  class="btn theme-btn btn-lg">Checkout</a>
                                     </div>
                                 </div>
 								
@@ -203,22 +198,18 @@ $item_total += ($item["price"]*$item["quantity"]); // calculating current price 
                                 <div class="clearfix"></div>
                             </div>
                             <div class="collapse in" id="popular2">
-						<?php  // display values and item 
-									$stmt = $db->prepare("select * from items where rs_id='$_GET[res_id]'");
-									$stmt->execute();
-									$products = $stmt->get_result();
-									if (!empty($products)) 
-									{
-									foreach($products as $product)
-										{
-						
-													
-													 
-													 ?>
+						<?php // display values and item
+                                    $stmt = $db->prepare("select * from items where rs_id='$_GET[res_id]'");
+$stmt->execute();
+$products = $stmt->get_result();
+if (! empty($products)) {
+    foreach ($products as $product) {
+
+        ?>
                                 <div class="food-item">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-lg-8">
-										<form method="post" action='items.php?res_id=<?php echo $_GET['res_id'];?>&action=add&id=<?php echo $product['d_id']; ?>'>
+										<form method="post" action='items.php?res_id=<?php echo $_GET['res_id']; ?>&action=add&id=<?php echo $product['d_id']; ?>'>
                                             <div class="rest-logo pull-left">
                                                 <a class="restaurant-logo pull-left" href="#"><?php echo '<img src="admin/Res_img/items/'.$product['img'].'" alt="grocery">'; ?></a>
                                             </div>
@@ -242,10 +233,10 @@ $item_total += ($item["price"]*$item["quantity"]); // calculating current price 
                                 <!-- end:Food item -->
 								
 								<?php
-									  }
-									}
-									
-								?>
+    }
+}
+
+?>
 								
 								
                               
