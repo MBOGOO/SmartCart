@@ -1,22 +1,21 @@
 <?php
 
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
-  if(isset($_POST['update']))
-  {
-$form_id=$_GET['form_id'];
-$status=$_POST['status'];
-$remark=$_POST['remark'];
-$query=mysqli_query($db,"insert into remark(frm_id,status,remark) values('$form_id','$status','$remark')");
-$sql=mysqli_query($db,"update users_orders set status='$status' where o_id='$form_id'");
+if (isset($_POST['update'])) {
+    $form_id = $_GET['form_id'];
+    $status = $_POST['status'];
+    $remark = $_POST['remark'];
+    $query = mysqli_query($db, "insert into remark(frm_id,status,remark) values('$form_id','$status','$remark')");
+    $sql = mysqli_query($db, "update users_orders set status='$status' where o_id='$form_id'");
 
-echo "<script>alert('form details updated successfully');</script>";
+    echo "<script>alert('Order details updated successfully');</script>";
 
-  }
+}
 
- ?>
+?>
 <script language="javascript" type="text/javascript">
 function f2()
 {
@@ -37,7 +36,7 @@ window.print();
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
+    <title>ORDER UPDATE</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
