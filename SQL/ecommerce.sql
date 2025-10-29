@@ -60,7 +60,7 @@ INSERT INTO `admin_codes` (`id`, `codes`) VALUES
 (4, 'QPGIOV'),
 (5, 'QSTE52'),
 (6, 'QMTZ2J');
-
+(7, 'QYUD3D');
 -- --------------------------------------------------------
 
 --
