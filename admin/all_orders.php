@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
@@ -157,7 +157,7 @@ session_start();
 												<th>Address</th>
 												<th>status</th>												
 												 <th>Reg-Date</th>
-												  <th>Action</th>
+												<th>Action</th>
 												 
                                             </tr>
                                         </thead>
@@ -165,72 +165,61 @@ session_start();
                                            
 											
 											<?php
-												$sql="SELECT users.*, users_orders.* FROM users INNER JOIN users_orders ON users.u_id=users_orders.u_id ";
-												$query=mysqli_query($db,$sql);
-												
-													if(!mysqli_num_rows($query) > 0 )
-														{
-															echo '<td colspan="8"><center>No Orders-Data!</center></td>';
-														}
-													else
-														{				
-																	while($rows=mysqli_fetch_array($query))
-																		{
-																																							
-																				?>
+                                                $sql = 'SELECT users.*, users_orders.* FROM users INNER JOIN users_orders ON users.u_id=users_orders.u_id ';
+$query = mysqli_query($db, $sql);
+
+if (! mysqli_num_rows($query) > 0) {
+    echo '<td colspan="8"><center>No Orders-Data!</center></td>';
+} else {
+    while ($rows = mysqli_fetch_array($query)) {
+
+        ?>
 																				<?php
-																					echo ' <tr>
+            echo ' <tr>
 																					           <td>'.$rows['username'].'</td>
 																								<td>'.$rows['title'].'</td>
 																								<td>'.$rows['quantity'].'</td>
 																								<td>₹'.$rows['price'].'</td>
 																								<td>'.$rows['address'].'</td>';
-																								?>
-																								<?php 
-																			$status=$rows['status'];
-																			if($status=="" or $status=="NULL")
-																			{
-																			?>
+        ?>
+																								<?php
+                                                                            $status = $rows['status'];
+        if ($status == '' or $status == 'NULL') {
+            ?>
 																			<td> <button type="button" class="btn btn-info" style="font-weight:bold;"><span class="fa fa-bars"  aria-hidden="true" >Dispatch</button></td>
-																		   <?php 
-																			  }
-																			   if($status=="in process")
-																			 { ?>
+																		   <?php
+        }
+        if ($status == 'in process') { ?>
 																			<td> <button type="button" class="btn btn-warning"><span class="fa fa-cog fa-spin"  aria-hidden="true" ></span>On a Way!</button></td> 
 																			<?php
-																				}
-																			if($status=="closed")
-																				{
-																			?>
+        }
+        if ($status == 'closed') {
+            ?>
 																			<td> <button type="button" class="btn btn-success" ><span  class="fa fa-check-circle" aria-hidden="true">Delivered</button></td> 
-																			<?php 
-																			} 
-																			?>
 																			<?php
-																			if($status=="rejected")
-																				{
-																			?>
+        }
+        ?>
+																			<?php
+        if ($status == 'rejected') {
+            ?>
 																			<td> <button type="button" class="btn btn-danger"> <i class="fa fa-close"></i>cancelled</button></td> 
-																			<?php 
-																			} 
-																			?>
-																						<?php																									
-																							echo '	<td>'.$rows['date'].'</td>';
-																							?>
+																			<?php
+        }
+        ?>
+																						<?php
+                        echo '	<td>'.$rows['date'].'</td>';
+        ?>
 																									 <td>
-																									 <a href="delete_orders.php?order_del=<?php echo $rows['o_id'];?>" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
+																									 <a href="delete_orders.php?order_del=<?php echo $rows['o_id']; ?>" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
 																								<?php
-																								echo '<a href="view_order.php?user_upd='.$rows['o_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
+            echo '<a href="view_order.php?user_upd='.$rows['o_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
 																									</td>
 																									</tr>';
-																					 
-																						
-																						
-																		}	
-														}
-												
-											
-											?>
+
+    }
+}
+
+                                            ?>
                                              
                                             
                                            

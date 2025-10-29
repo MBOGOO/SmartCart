@@ -1,109 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
+if (isset($_POST['submit'])) {           // if upload btn is pressed
 
-
-
-if(isset($_POST['submit']))           //if upload btn is pressed
-{
-	
-			
-		
-			
-		  
-		
-		
-		if(empty($_POST['res_name'])||$_POST['email']==''||$_POST['phone']==''||$_POST['url']==''||$_POST['o_hr']==''||$_POST['c_hr']==''||$_POST['o_days']==''||$_POST['address']=='')
-		{	
-											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
+    if (empty($_POST['res_name']) || $_POST['email'] == '' || $_POST['phone'] == '' || $_POST['url'] == '' || $_POST['o_hr'] == '' || $_POST['c_hr'] == '' || $_POST['o_days'] == '' || $_POST['address'] == '') {
+        $error = '<div class="alert alert-danger alert-dismissible fade show">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																<strong>All fields Must be Fillup!</strong>
 															</div>';
-									
-		
-								
-		}
-	else
-		{
-		
-				$fname = $_FILES['file']['name'];
-								$temp = $_FILES['file']['tmp_name'];
-								$fsize = $_FILES['file']['size'];
-								$extension = explode('.',$fname);
-								$extension = strtolower(end($extension));  
-								$fnew = uniqid().'.'.$extension;
-   
-								$store = "Res_img/".basename($fnew);                      // the path to store the upload image
-	
-					if($extension == 'jpg'||$extension == 'png'||$extension == 'gif' )
-					{        
-									if($fsize>=1000000)
-										{
-		
-		
-												$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>Max Image Size is 1024kb!</strong> Try different Image.
-															</div>';
-	   
-										}
-		
-									else
-										{
-												
-												
-												$res_name=$_POST['res_name'];
-				                                 
-												$sql = "update store set title='$res_name',email='$_POST[email]',phone='$_POST[phone]',url='$_POST[url]',o_hr='$_POST[o_hr]',c_hr='$_POST[c_hr]',o_days='$_POST[o_days]',address='$_POST[address]',image='$fnew' where rs_id='$_GET[res_upd]' ";  // store the submited data ino the database :images												mysqli_query($db, $sql); 
-													mysqli_query($db, $sql); 
-												move_uploaded_file($temp, $store);
-			  
-													$success = 	'<div class="alert alert-success alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>Record Updated!</strong>.
-															</div>';
-                
-	
-										}
-					}
-					elseif($extension == '')
-					{
-						$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>select image</strong>
-															</div>';
-					}
-					else{
-					
-											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>invalid extension!</strong>png, jpg, Gif are accepted.
-															</div>';
-						
-	   
-						}               
-	   
-	   
-	   }
 
+    } else {
 
+        $fname = $_FILES['file']['name'];
+        $temp = $_FILES['file']['tmp_name'];
+        $fsize = $_FILES['file']['size']; // kept for reference but no size restriction now
+        $extension = explode('.', $fname);
+        $extension = strtolower(end($extension));
+        $fnew = uniqid().'.'.$extension;
 
-	
-	
-	
+        $store = 'Res_img/'.basename($fnew); // path to store the uploaded image
 
+        // Allow only image file types
+        if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif') {
+
+            $res_name = $_POST['res_name'];
+
+            // Update record in the database
+            $sql = "UPDATE store 
+            SET title = '$res_name',
+                email = '$_POST[email]',
+                phone = '$_POST[phone]',
+                url = '$_POST[url]',
+                o_hr = '$_POST[o_hr]',
+                c_hr = '$_POST[c_hr]',
+                o_days = '$_POST[o_days]',
+                address = '$_POST[address]',
+                image = '$fnew'
+            WHERE rs_id = '$_GET[res_upd]'";
+
+            mysqli_query($db, $sql);
+            move_uploaded_file($temp, $store);
+
+            $success = '<div class="alert alert-success alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Record Updated!</strong>
+                </div>';
+
+        } elseif ($extension == '') {
+
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Select an image!</strong>
+              </div>';
+
+        } else {
+
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Invalid extension!</strong> Only PNG, JPG, or GIF are accepted.
+              </div>';
+        }
+    }
 }
-
-
-
-
-
-
-
 
 ?>
 <head>
@@ -244,8 +212,8 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                 <!-- Start Page Content -->
                   
 									
-									<?php  echo $error;
-									        echo $success; ?>
+									<?php echo $error;
+echo $success; ?>
 									
 									
 								
@@ -258,22 +226,22 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                             <div class="card-body">
                                 <form action='' method='post'  enctype="multipart/form-data">
                                     <div class="form-body">
-                                       <?php $ssql ="select * from store where rs_id='$_GET[res_upd]'";
-													$res=mysqli_query($db, $ssql); 
-													$row=mysqli_fetch_array($res);?>
+                                       <?php $ssql = "select * from store where rs_id='$_GET[res_upd]'";
+$res = mysqli_query($db, $ssql);
+$row = mysqli_fetch_array($res); ?>
                                         <hr>
                                         <div class="row p-t-20">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Store Name</label>
-                                                    <input type="text" name="res_name" value="<?php echo $row['title'];  ?>" class="form-control" placeholder="John doe">
+                                                    <input type="text" name="res_name" value="<?php echo $row['title']; ?>" class="form-control" placeholder="John doe">
                                                    </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group has-danger">
                                                     <label class="control-label">Bussiness E-mail</label>
-                                                    <input type="text" name="email" value="<?php echo $row['email'];  ?>"class="form-control form-control-danger" placeholder="example@gmail.com">
+                                                    <input type="text" name="email" value="<?php echo $row['email']; ?>"class="form-control form-control-danger" placeholder="example@gmail.com">
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -283,14 +251,14 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Phone </label>
-                                                    <input type="text" name="phone" class="form-control" value="<?php echo $row['phone'];  ?>" placeholder="1-(555)-555-5555">
+                                                    <input type="text" name="phone" class="form-control" value="<?php echo $row['phone']; ?>" placeholder="1-(555)-555-5555">
                                                    </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group has-danger">
                                                     <label class="control-label">website URL</label>
-                                                    <input type="text" name="url" class="form-control form-control-danger" value="<?php echo $row['url'];  ?>" placeholder="http://example.com">
+                                                    <input type="text" name="url" class="form-control form-control-danger" value="<?php echo $row['url']; ?>" placeholder="http://example.com">
                                                     </div>
                                             </div>
                                             <!--/span-->

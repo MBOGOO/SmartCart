@@ -1,94 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
+if (isset($_POST['submit'])) {           // if upload btn is pressed
 
-
-
-if(isset($_POST['submit']))           //if upload btn is pressed
-{
-	
-			
-		
-			
-		  
-		
-		
-		if(empty($_POST['d_name'])||empty($_POST['about'])||$_POST['price']==''||$_POST['res_name']=='')
-		{	
-											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
+    if (empty($_POST['d_name']) || empty($_POST['about']) || $_POST['price'] == '' || $_POST['res_name'] == '') {
+        $error = '<div class="alert alert-danger alert-dismissible fade show">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																<strong>All fields Must be Fillup!</strong>
 															</div>';
-									
-		
-								
-		}
-	else
-		{
-		
-				$fname = $_FILES['file']['name'];
-								$temp = $_FILES['file']['tmp_name'];
-								$fsize = $_FILES['file']['size'];
-								$extension = explode('.',$fname);
-								$extension = strtolower(end($extension));  
-								$fnew = uniqid().'.'.$extension;
-   
-								$store = "Res_img/items/".basename($fnew);                      // the path to store the upload image
-	
-					if($extension == 'jpg'||$extension == 'png'||$extension == 'gif' )
-					{        
-									if($fsize>=1000000)
-										{
-		
-		
-												$error = 	'<div class="alert alert-danger alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>Max Image Size is 1024kb!</strong> Try different Image.
-															</div>';
-	   
-										}
-		
-									else
-										{
-												
-												
-												
-				                                 
-												$sql = "update items set rs_id='$_POST[res_name]',title='$_POST[d_name]',slogan='$_POST[about]',price='$_POST[price]',img='$fnew' where d_id='$_GET[menu_upd]'";  // update the submited data ino the database :images
-												mysqli_query($db, $sql); 
-												move_uploaded_file($temp, $store);
-			  
-													$success = 	'<div class="alert alert-success alert-dismissible fade show">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<strong>Record</strong>Updated.
-															</div>';
-                
-	
-										}
-					}
-					              
-	   
-	   
-	   }
 
+    } else {
 
+        $fname = $_FILES['file']['name'];
+        $temp = $_FILES['file']['tmp_name'];
+        $fsize = $_FILES['file']['size']; // kept for reference, no size limit applied
+        $extension = explode('.', $fname);
+        $extension = strtolower(end($extension));
+        $fnew = uniqid().'.'.$extension;
 
-	
-	
-	
+        $store = 'Res_img/items/'.basename($fnew); // path to store uploaded image
+
+        // Allow only image file types
+        if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif') {
+
+            // Update item details in database
+            $sql = "UPDATE items 
+            SET rs_id = '$_POST[res_name]',
+                title = '$_POST[d_name]',
+                slogan = '$_POST[about]',
+                price = '$_POST[price]',
+                img = '$fnew'
+            WHERE d_id = '$_GET[menu_upd]'";
+
+            mysqli_query($db, $sql);
+            move_uploaded_file($temp, $store);
+
+            $success = '<div class="alert alert-success alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Record Updated!</strong>
+                </div>';
+
+        } elseif ($extension == '') {
+
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Select an image!</strong>
+              </div>';
+
+        } else {
+
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Invalid file extension!</strong> Only JPG, PNG, or GIF images are allowed.
+              </div>';
+        }
+    }
 
 }
-
-
-
-
-
-
-
 
 ?>
 <head>
@@ -229,8 +207,8 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                 <!-- Start Page Content -->
                   
 									
-									<?php  echo $error;
-									        echo $success; ?>
+									<?php echo $error;
+echo $success; ?>
 									
 									
 								
@@ -243,23 +221,23 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                             <div class="card-body">
                                 <form action='' method='post'  enctype="multipart/form-data">
                                     <div class="form-body">
-                                        <?php $qml ="select * from items where d_id='$_GET[menu_upd]'";
-													$rest=mysqli_query($db, $qml); 
-													$roww=mysqli_fetch_array($rest);
-														?>
+                                        <?php $qml = "select * from items where d_id='$_GET[menu_upd]'";
+$rest = mysqli_query($db, $qml);
+$roww = mysqli_fetch_array($rest);
+?>
                                         <hr>
                                         <div class="row p-t-20">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Item Name</label>
-                                                    <input type="text" name="d_name" value="<?php echo $roww['title'];?>" class="form-control" placeholder="Morzirella">
+                                                    <input type="text" name="d_name" value="<?php echo $roww['title']; ?>" class="form-control" placeholder="Morzirella">
                                                    </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group has-danger">
                                                     <label class="control-label">About</label>
-                                                    <input type="text" name="about" value="<?php echo $roww['slogan'];?>" class="form-control form-control-danger" placeholder="about Item">
+                                                    <input type="text" name="about" value="<?php echo $roww['slogan']; ?>" class="form-control form-control-danger" placeholder="about Item">
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -269,7 +247,7 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">price </label>
-                                                    <input type="text" name="price" value="<?php echo $roww['price'];?>"  class="form-control" placeholder="₹">
+                                                    <input type="text" name="price" value="<?php echo $roww['price']; ?>"  class="form-control" placeholder="₹">
                                                    </div>
                                             </div>
                                             <!--/span-->
@@ -296,14 +274,13 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                                                     <label class="control-label">Select Store</label>
 													<select name="res_name" class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
                                                         <option>--Select Store--</option>
-                                                 <?php $ssql ="select * from store";
-													$res=mysqli_query($db, $ssql); 
-													while($row=mysqli_fetch_array($res))  
-													{
-                                                       echo' <option value="'.$row['rs_id'].'">'.$row['title'].'</option>';;
-													}  
-                                                 
-													?> 
+                                                 <?php $ssql = 'select * from store';
+$res = mysqli_query($db, $ssql);
+while ($row = mysqli_fetch_array($res)) {
+    echo ' <option value="'.$row['rs_id'].'">'.$row['title'].'</option>';
+}
+
+?> 
 													 </select>
                                                 </div>
                                             </div>
