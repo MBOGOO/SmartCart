@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("connection/connect.php");
+include 'connection/connect.php';
 include_once 'product-action.php';
 error_reporting(0);
 session_start();
-if(empty($_SESSION["user_id"]))
-{
-	header('location:login.php');
-}
-else{
+if (empty($_SESSION['user_id'])) {
+    header('location:login.php');
+} else {
 
-										  
-			foreach ($_SESSION["cart_item"] as $item)
-				{
-											
-					$item_total += ($item["price"]*$item["quantity"]);
-												
-					if($_POST['submit'])
-						{
-							$SQL="insert into users_orders(u_id,title,quantity,price) values('".$_SESSION["user_id"]."','".$item["title"]."','".$item["quantity"]."','".$item["price"]."')";
-							mysqli_query($db,$SQL);						
-							$success = "Order Placed successfully!";							
-						}
-				}
-?>
+    if (isset($_POST['submit'])) {
+        foreach ($_SESSION['cart_item'] as $item) {
+            $check = $db->prepare('SELECT stock FROM items WHERE title = ?');
+            $check->bind_param('s', $item['title']);
+            $check->execute();
+            $stockResult = $check->get_result()->fetch_assoc();
+
+            if ($stockResult['stock'] < $item['quantity']) {
+                echo "<script>alert('❌ Sorry, not enough stock for {$item['title']}. Only {$stockResult['stock']} left.'); window.history.back();</script>";
+                exit;
+            }
+        }
+    }
+
+    foreach ($_SESSION['cart_item'] as $item) {
+        $item_total += ($item['price'] * $item['quantity']);
+
+        if (isset($_POST['submit'])) {
+            // Insert each order into the database
+            $SQL = "INSERT INTO users_orders (u_id, title, quantity, price) 
+                VALUES ('".$_SESSION['user_id']."', '".$item['title']."', '".$item['quantity']."', '".$item['price']."')";
+            mysqli_query($db, $SQL);
+
+            // ✅ Reduce stock permanently
+            $updateStock = $db->prepare('UPDATE items SET stock = GREATEST(stock - ?, 0) WHERE title = ?');
+            $updateStock->bind_param('is', $item['quantity'], $item['title']);
+            $updateStock->execute();
+        }
+    }
+
+    // ✅ Clear cart and show success message
+    if (isset($_POST['submit'])) {
+        unset($_SESSION['cart_item']);
+        $success = 'Order placed successfully! Stock updated.';
+    }
+
+    ?>
 
 
 <head>
@@ -59,20 +80,16 @@ else{
                             <li class="nav-item"> <a class="nav-link active" href="shop.php"style="color:black">Section <span class="sr-only"></span></a> </li>
                             
 							<?php
-						if(empty($_SESSION["user_id"]))
-							{
-								echo '<li class="nav-item"><a href="login.php" class="nav-link active"style="color:black">login</a> </li>
+                            if (empty($_SESSION['user_id'])) {
+                                echo '<li class="nav-item"><a href="login.php" class="nav-link active"style="color:black">login</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active"style="color:black">signup</a> </li>';
-							}
-						else
-							{
-									
-									
-										echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active"style="color:black">your orders</a> </li>';
-									echo  '<li class="nav-item"><a href="logout.php" class="nav-link active"style="color:black">logout</a> </li>';
-							}
+                            } else {
 
-						?>
+                                echo '<li class="nav-item"><a href="your_orders.php" class="nav-link active"style="color:black">your orders</a> </li>';
+                                echo '<li class="nav-item"><a href="logout.php" class="nav-link active"style="color:black">logout</a> </li>';
+                            }
+
+    ?>
 							 
                         </ul>
                     </div>
@@ -96,7 +113,7 @@ else{
                  <center>
                 <h2><span style="color:green;">
 								<?php echo $success;
-                                                                ?>
+    ?>
 										</span></h2>
                 </center>
 					
@@ -126,7 +143,7 @@ else{
 											   
                                                     <tr>
                                                         <td>Cart Subtotal</td>
-                                                        <td> <?php echo "Kes".$item_total; ?></td>
+                                                        <td> <?php echo 'Kes'.$item_total; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Shipping &amp; Handling</td>
@@ -134,7 +151,7 @@ else{
                                                     </tr>
                                                     <tr>
                                                         <td class="text-color"><strong>Total</strong></td>
-                                                        <td class="text-color"><strong> <?php echo "kes".$item_total; ?></strong></td>
+                                                        <td class="text-color"><strong> <?php echo 'kes'.$item_total; ?></strong></td>
                                                     </tr>
                                                 </tbody>
 												

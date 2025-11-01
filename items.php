@@ -217,6 +217,7 @@ if (! empty($products)) {
                                             <div class="rest-descr">
                                                 <h6><a href="#"><?php echo $product['title']; ?></a></h6>
                                                 <p> <?php echo $product['slogan']; ?></p>
+                                                <p><strong>Available Stock:</strong> <?php echo $product['stock']; ?></p>
                                             </div>
                                             <!-- end:Description -->
                                         </div>
@@ -265,10 +266,24 @@ if (! empty($products)) {
                     
                     
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn theme-btn">Add to cart</button>
-                </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+    <?php if ($rows['stock'] > 0) { ?>
+        <div style="margin-right:auto;">
+            <p><strong>Available:</strong> <?php echo $rows['stock']; ?> in stock</p>
+        </div>
+        <form action="product-action.php?action=add&id=<?php echo $rows['d_id']; ?>" method="post" style="display:flex; align-items:center;">
+            <input class="b-r-0" type="number" name="quantity" min="1" max="<?php echo $rows['stock']; ?>" value="1" size="2" style="margin-right:10px;" />
+            <input type="submit" class="btn theme-btn" value="Add to cart" />
+        </form>
+    <?php } else { ?>
+        <span class="text-danger" style="margin-right:auto;"><strong>Out of Stock</strong></span>
+        <button class="btn btn-secondary" disabled>Out of Stock</button>
+    <?php } ?>
+</div>
+
+
             </div>
         </div>
     </div>
@@ -282,6 +297,37 @@ if (! empty($products)) {
     <script src="js/jquery.isotope.min.js"></script>
     <script src="js/headroom.js"></script>
     <script src="js/foodpicky.min.js"></script>
+    <script>
+$(document).ready(function() {
+    // Handle all add-to-cart forms
+    $('form[id^="addToCartForm_"]').on('submit', function(e) {
+        e.preventDefault(); // stop form reload
+
+        var form = $(this);
+        var itemId = form.find('input[name="id"]').val();
+        var quantity = form.find('input[name="quantity"]').val();
+
+        $.ajax({
+            url: 'product-action.php', // your backend cart handler
+            method: 'POST',
+            data: {
+                action: 'add',
+                id: itemId,
+                quantity: quantity
+            },
+            success: function(response) {
+                alert('✅ Item added to cart successfully!');
+                // Optionally refresh cart summary
+                $('#cart-summary').load(location.href + " #cart-summary>*", "");
+            },
+            error: function() {
+                alert('⚠️ Something went wrong. Try again.');
+            }
+        });
+    });
+});
+</script>
+
 </body>
 
 </html>

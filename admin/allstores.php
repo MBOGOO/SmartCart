@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
@@ -177,23 +177,19 @@ session_start();
 										
                                            
                                                	<?php
-												$sql="SELECT * FROM store order by rs_id desc";
-												$query=mysqli_query($db,$sql);
-												
-													if(!mysqli_num_rows($query) > 0 )
-														{
-															echo '<td colspan="11"><center>No Stores-Data!</center></td>';
-														}
-													else
-														{				
-																	while($rows=mysqli_fetch_array($query))
-																		{
-																					
-																				$mql="SELECT * FROM store where c_id='".$rows['c_id']."'";
-																					$res=mysqli_query($db,$mql);
-																					$row=mysqli_fetch_array($res);
-																				
-																					echo ' <tr>
+                                                $sql = 'SELECT * FROM store order by rs_id desc';
+$query = mysqli_query($db, $sql);
+
+if (! mysqli_num_rows($query) > 0) {
+    echo '<td colspan="11"><center>No Stores-Data!</center></td>';
+} else {
+    while ($rows = mysqli_fetch_array($query)) {
+
+        $mql = "SELECT * FROM store where c_id='".$rows['c_id']."'";
+        $res = mysqli_query($db, $mql);
+        $row = mysqli_fetch_array($res);
+
+        echo ' <tr>
 																								<td>'.$rows['title'].'</td>
 																								<td>'.$rows['email'].'</td>
 																								<td>'.$rows['phone'].'</td>
@@ -214,14 +210,11 @@ session_start();
 																									 <td><a href="delete_stores.php?res_del='.$rows['rs_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
 																									 <a href="update_store.php?res_upd='.$rows['rs_id'].'" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
 																									</td></tr>';
-																					 
-																						
-																						
-																		}	
-														}
-												
-											
-											?>
+
+    }
+}
+
+                                            ?>
                                             
                                            
                                  

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
 
@@ -159,6 +159,7 @@ session_start();
                                                 <th>Item-Name</th>
                                                 <th>About</th>
                                                 <th>Price</th>
+                                                <th>Stock</th>
                                                 <th>Image</th>
                                                <th>Action</th>
 												  
@@ -169,27 +170,23 @@ session_start();
 										
                                            
                                                	<?php
-												$sql="SELECT * FROM items order by d_id desc";
-												$query=mysqli_query($db,$sql);
-												
-													if(!mysqli_num_rows($query) > 0 )
-														{
-															echo '<td colspan="11"><center>No Dish-Data!</center></td>';
-														}
-													else
-														{				
-																	while($rows=mysqli_fetch_array($query))
-																		{
-																				$mql="select * from store where rs_id='".$rows['rs_id']."'";
-																				$newquery=mysqli_query($db,$mql);
-																				$fetch=mysqli_fetch_array($newquery);
-																				
-																				
-																					echo '<tr><td>'.$fetch['title'].'</td>
+                                                $sql = 'SELECT * FROM items order by d_id desc';
+$query = mysqli_query($db, $sql);
+
+if (! mysqli_num_rows($query) > 0) {
+    echo '<td colspan="11"><center>No Dish-Data!</center></td>';
+} else {
+    while ($rows = mysqli_fetch_array($query)) {
+        $mql = "select * from store where rs_id='".$rows['rs_id']."'";
+        $newquery = mysqli_query($db, $mql);
+        $fetch = mysqli_fetch_array($newquery);
+
+        echo '<tr><td>'.$fetch['title'].'</td>
 																					
 																								<td>'.$rows['title'].'</td>
 																								<td>'.$rows['slogan'].'</td>
 																								<td>₹'.$rows['price'].'</td>
+                                                                                                   <td>'.$rows['stock'].'</td>
 																								
 																								
 																								<td><div class="col-md-3 col-lg-8 m-b-10">
@@ -200,14 +197,11 @@ session_start();
 																									 <td><a href="delete_item.php?menu_del='.$rows['d_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
 																									 <a href="update_item.php?menu_upd='.$rows['d_id'].'" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
 																									</td></tr>';
-																					 
-																						
-																						
-																		}	
-														}
-												
-											
-											?>
+
+    }
+}
+
+                                            ?>
                                             
                                            
                                  
