@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("../connection/connect.php");
+include '../connection/connect.php';
 error_reporting(0);
 session_start();
-if(empty($_SESSION["adm_id"]))
-{
-	header('location:index.php');
-}
-else
-{
-?>
+if (empty($_SESSION['adm_id'])) {
+    header('location:index.php');
+} else {
+    ?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -151,11 +148,11 @@ else
                                     <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2><?php $sql="select * from store";
-												$result=mysqli_query($db,$sql); 
-													$rws=mysqli_num_rows($result);
-													
-													echo $rws;?></h2>
+                                    <h2><?php $sql = 'select * from store';
+    $result = mysqli_query($db, $sql);
+    $rws = mysqli_num_rows($result);
+
+    echo $rws; ?></h2>
                                     <p class="m-b-0">Stores</p>
                                 </div>
                             </div>
@@ -169,11 +166,11 @@ else
                                     <span><i class="fa fa-cubes f-s-40" aria-hidden="true"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2><?php $sql="select * from items";
-												$result=mysqli_query($db,$sql); 
-													$rws=mysqli_num_rows($result);
-													
-													echo $rws;?></h2>
+                                    <h2><?php $sql = 'select * from items';
+    $result = mysqli_query($db, $sql);
+    $rws = mysqli_num_rows($result);
+
+    echo $rws; ?></h2>
                                     <p class="m-b-0">Items</p>
                                 </div>
                             </div>
@@ -187,11 +184,11 @@ else
                                     <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2><?php $sql="select * from users";
-												$result=mysqli_query($db,$sql); 
-													$rws=mysqli_num_rows($result);
-													
-													echo $rws;?></h2>
+                                    <h2><?php $sql = 'select * from users';
+    $result = mysqli_query($db, $sql);
+    $rws = mysqli_num_rows($result);
+
+    echo $rws; ?></h2>
                                     <p class="m-b-0">Customer</p>
                                 </div>
                             </div>
@@ -205,11 +202,11 @@ else
                                     <span><i class="fa fa-shopping-cart f-s-40" aria-hidden="true"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2><?php $sql="select * from users_orders";
-												$result=mysqli_query($db,$sql); 
-													$rws=mysqli_num_rows($result);
-													
-													echo $rws;?></h2>
+                                    <h2><?php $sql = 'select * from users_orders';
+    $result = mysqli_query($db, $sql);
+    $rws = mysqli_num_rows($result);
+
+    echo $rws; ?></h2>
                                     <p class="m-b-0">Orders</p>
                                 </div>
                             </div>

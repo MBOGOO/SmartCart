@@ -179,7 +179,7 @@ if (! mysqli_num_rows($query) > 0) {
 																					           <td>'.$rows['username'].'</td>
 																								<td>'.$rows['title'].'</td>
 																								<td>'.$rows['quantity'].'</td>
-																								<td>₹'.$rows['price'].'</td>
+																								<td>Ksh'.$rows['price'].'</td>
 																								<td>'.$rows['address'].'</td>';
         ?>
 																								<?php
@@ -219,7 +219,7 @@ if (! mysqli_num_rows($query) > 0) {
     }
 }
 
-                                            ?>
+?>
                                              
                                             
                                            

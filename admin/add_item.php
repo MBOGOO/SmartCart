@@ -232,7 +232,7 @@ echo $success; ?>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Price</label>
-                                                <input type="text" name="price" class="form-control" placeholder="₹">
+                                                <input type="text" name="price" class="form-control" placeholder="Ksh">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
